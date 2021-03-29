@@ -1,9 +1,10 @@
 import React from 'react';
-import Hello from '../styled-components/StyledDashboard';
+// import Hello from '../styled-components/StyledDashboard';
 
-const Header = () => {
+function Header(props) {
+  let tableHeader = props.headers.map((x, idx) => {return <th key={idx} className="Table-header"> {x} </th>});
   return (
-    <Hello>Hello</Hello>
+    <tr className="table-row-header"> {tableHeader} </tr>
   )
 }
 
