@@ -1,11 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import Header from './components/Header';
-import Button from '@material-ui/core/Button';
-import Dashboard from './components/Dashboard';
 import Table from './components/Table';
 import Box from './components/Box';
-import Hello from './styled-components/StyledDashboard';
 
 function App() {
 
@@ -25,13 +21,14 @@ function App() {
 
   useEffect(() => {
     setData(makeData());
-  }, [inUse]);
+  }, []);
 
   function makeData() {
     let rows = [];
     for (let i = 0; i < inUse; i++) {
       rows.push(makeRow());
     }
+    console.log(rows);
     return rows;
   }
 
@@ -44,14 +41,12 @@ function App() {
     return row;
   }
 
-  // TODO: implement polling to get fetch the data every 3 seconds (Or every x seconds);
-
   return (
     <div className="main">
       <h1 className="header"> Ventilator Dashboard Overview </h1>
-      <Box title="Capacity" percent={true} value={Math.round(100*(inUse/capacity))} key={1}/>
-      <Box title="In use" percent={false} key={2} value={inUse}/>
-      <Box title="In storage" percent={false} key={3} value={capacity - inUse}/>
+      <Box title="Capacity" key={1} percent={true} value={Math.round(100*(inUse/capacity))} />
+      <Box title="In use" key={2} percent={false} value={inUse}/>
+      <Box title="In storage" key={3} percent={false} value={capacity - inUse}/>
       <Table headers={headerList} allRows={data} className="main-table" />
     </div>
   );
