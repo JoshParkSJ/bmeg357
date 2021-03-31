@@ -1,32 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 
-export default function Table(props) {
-    let rows = [];
-    props.allRows.forEach((x, idx) => {
-        rows.push(<SingleRow data={x} key={idx}/>);
-    });
+const Table = props => {
+    const [rows, setRows] = useState([]);
+    const { allRows } = props;
 
-    // rows.map((x, idx) => {
-    //     return <SingleRow data={x} key={idx}/>;
-    // });
-
+    useEffect(() => {
+        if (allRows?.[0]) {
+            const runningRow = [];
+            Object.values(allRows).forEach((x, idx) => runningRow.push(<SingleRow data={x} key={idx}/>));
+            setRows(runningRow);
+        } 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [allRows])
 
     return (
         <table className="main-table">
-            <Header headers={props.headers}/>
+            <Header headers={props.title}/>
             {rows}
         </table>
     )
 }
 
-function SingleRow(props) {
-    let row = [];
-    props.data.forEach((x, idx) => {
-        row.push(<td key={idx}> {x} </td>)
-    });
-    
-    return (<tr> 
-                {row}
-            </tr>);
+const SingleRow = props => {
+    return (
+      <tr>
+        {props.data.map((x, idx) => {
+          return (<td key={idx}>{idx === 3 ? new Date(props.data[3].seconds * 1000).toString() : String(x)}</td>)
+        })}
+      </tr>
+    );
 }
+
+export default Table;
