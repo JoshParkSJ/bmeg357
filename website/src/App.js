@@ -16,7 +16,7 @@ function App() {
     let earliestUpdateIdx = 0;
     let idx = 0;
     dataValues?.forEach(row => {
-      if (row[2] === 'On' && row[3].seconds < earliestUpate[3].seconds) {
+      if (row[2] === 'On' && row[3].seconds > earliestUpate[3].seconds) {
         earliestUpate = row;
         earliestUpdateIdx = idx; 
       };
